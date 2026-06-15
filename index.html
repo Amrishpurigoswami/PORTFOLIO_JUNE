@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amrish Puri Goswami — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F1419;
+    --bg-soft: #161D26;
+    --bg-card: #1B232E;
+    --text: #E8E8E8;
+    --text-dim: #8B97A8;
+    --cyan: #00D9FF;
+    --amber: #FFB86C;
+    --violet: #BD93F9;
+    --border: #2A3441;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15, 20, 25, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    font-family: var(--mono);
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--cyan); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+  }
+  .nav-links a {
+    color: var(--text-dim);
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+  .nav-links a::before { content: "./"; color: var(--violet); opacity: 0.6; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 110px 0 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0,217,255,0.10), transparent 70%);
+    pointer-events: none;
+  }
+  .terminal {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px -20px rgba(0,0,0,0.6);
+    max-width: 720px;
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.r { background: #FF5F56; }
+  .dot.y { background: #FFBD2E; }
+  .dot.g { background: #27C93F; }
+  .term-title {
+    margin-left: 10px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+  .term-body {
+    padding: 28px 24px;
+    font-family: var(--mono);
+    font-size: 0.92rem;
+  }
+  .term-body .line { margin-bottom: 6px; }
+  .prompt { color: var(--cyan); }
+  .path { color: var(--violet); }
+  .out { color: var(--text-dim); }
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    background: var(--cyan);
+    vertical-align: text-bottom;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  h1.title {
+    font-family: var(--mono);
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 36px 0 14px;
+    letter-spacing: -0.02em;
+  }
+  h1.title .accent { color: var(--cyan); }
+  .tagline {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    max-width: 560px;
+    margin-bottom: 28px;
+  }
+  .tagline .hl { color: var(--amber); font-weight: 600; }
+  .hero-links {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 11px 22px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn.primary {
+    background: var(--cyan);
+    color: #0F1419;
+    border-color: var(--cyan);
+  }
+  .btn.primary:hover, .btn.primary:focus-visible { background: #5CE7FF; transform: translateY(-2px); }
+  .btn.ghost:hover, .btn.ghost:focus-visible {
+    border-color: var(--cyan);
+    color: var(--cyan);
+    transform: translateY(-2px);
+  }
+
+  /* ---------- SECTION HEADINGS ---------- */
+  section { padding: 70px 0; border-top: 1px solid var(--border); }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+  .sec-num {
+    font-family: var(--mono);
+    color: var(--violet);
+    font-size: 0.95rem;
+  }
+  .sec-head h2 {
+    font-family: var(--mono);
+    font-size: 1.8rem;
+    font-weight: 800;
+  }
+  .sec-head .rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 50px;
+  }
+  .about-grid p { color: var(--text-dim); margin-bottom: 16px; }
+  .about-grid p .hl { color: var(--text); font-weight: 500; }
+  .stack-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+  }
+  .stack-box h3 {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+  }
+  .pill-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .pill-group:last-child { margin-bottom: 0; }
+  .pill {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+  }
+  .pill.cyan { color: var(--cyan); border-color: rgba(0,217,255,0.3); }
+  .pill.amber { color: var(--amber); border-color: rgba(255,184,108,0.3); }
+  .pill.violet { color: var(--violet); border-color: rgba(189,147,249,0.3); }
+
+  /* ---------- EXPERIENCE ---------- */
+  .timeline { display: flex; flex-direction: column; gap: 28px; }
+  .job {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .job:last-child { border-bottom: none; padding-bottom: 0; }
+  .job-date {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--amber);
+  }
+  .job h3 { font-size: 1.05rem; margin-bottom: 2px; }
+  .job .company { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 10px; }
+  .job ul { list-style: none; color: var(--text-dim); font-size: 0.92rem; }
+  .job li { margin-bottom: 5px; padding-left: 18px; position: relative; }
+  .job li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+  .card:hover, .card:focus-within { transform: translateY(-5px); border-color: var(--cyan); }
+  .card-head {
+    padding: 16px 20px;
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-head .fname {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+  .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+  .card-body h3 { font-size: 1.08rem; margin-bottom: 8px; }
+  .card-body p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 16px; flex: 1; }
+  .card-body p .hl { color: var(--text); }
+  .card .pill-group { margin-top: auto; }
+  .card-link {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--cyan);
+    margin-top: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-link:hover, .card-link:focus-visible { text-decoration: underline; }
+
+  /* ---------- CONTACT ---------- */
+  .contact-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+  }
+  .contact-box h2 {
+    font-family: var(--mono);
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+  .contact-box p { color: var(--text-dim); margin-bottom: 26px; }
+  .contact-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 0;
+    text-align: center;
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+  }
+  footer .accent { color: var(--violet); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 760px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .job { grid-template-columns: 1fr; gap: 6px; }
+    .nav-links { gap: 16px; font-size: 0.78rem; }
+    .term-body { font-size: 0.8rem; }
+    h1.title { font-size: 2rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cursor { animation: none; }
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">apg<span>.dev</span></div>
+    <div class="nav-links">
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="terminal">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">amrish@portfolio — zsh</span>
+      </div>
+      <div class="term-body">
+        <div class="line"><span class="prompt">amrish@dev</span><span class="path">:~$</span> whoami</div>
+        <div class="line out">B.Tech CSE student · AI/ML + Cloud builder</div>
+        <div class="line"><span class="prompt">amrish@dev</span><span class="path">:~$</span> cat status.txt</div>
+        <div class="line out">Currently shipping RAG apps, training CNNs, and breaking AWS bills.<span class="cursor"></span></div>
+      </div>
+    </div>
+
+    <h1 class="title">Hi, I'm <span class="accent">Amrish Puri Goswami</span>.</h1>
+    <p class="tagline">
+      A computer science undergrad at <span class="hl">Jodhpur Institute of Engineering and Technology</span>,
+      building things at the intersection of <span class="hl">AI</span>, <span class="hl">cloud infrastructure</span>,
+      and <span class="hl">apps people actually use</span>.
+    </p>
+
+    <div class="hero-links">
+      <a class="btn primary" href="https://github.com/Amrishpurigoswami" target="_blank" rel="noopener">View GitHub →</a>
+      <a class="btn ghost" href="#projects">See projects</a>
+      <a class="btn ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>About</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>
+          I'm a Computer Science undergraduate (2023–2027) at <span class="hl">Jodhpur Institute of Engineering and Technology</span>,
+          currently maintaining a CGPA of 7.70. My focus sits at the overlap of machine learning, cloud architecture,
+          and practical software — I like building things that go from a notebook experiment to something deployable.
+        </p>
+        <p>
+          Over the past year I've interned in <span class="hl">cloud computing</span> at Maxgen Technologies, where I
+          worked hands-on with AWS (EC2, S3, IAM, RDS, VPC) and designed cloud architectures with scalability and
+          security in mind. Before that, I interned in <span class="hl">artificial intelligence</span> at Codec
+          Technologies, building and training CNN models for image classification using TensorFlow.
+        </p>
+        <p>
+          Outside coursework, I'm an active participant in hackathons and ideathons, and I organized an
+          inter-college esports tournament with 100+ participants — because shipping things, technical or not,
+          is what I enjoy most.
+        </p>
+      </div>
+      <div class="stack-box">
+        <h3>Languages</h3>
+        <div class="pill-group">
+          <span class="pill violet">Python</span>
+          <span class="pill violet">C++</span>
+          <span class="pill violet">C</span>
+          <span class="pill violet">Java</span>
+          <span class="pill violet">SQL</span>
+          <span class="pill violet">Dart</span>
+          <span class="pill violet">HTML/CSS</span>
+        </div>
+        <h3>AI / ML</h3>
+        <div class="pill-group">
+          <span class="pill cyan">TensorFlow</span>
+          <span class="pill cyan">LangChain</span>
+          <span class="pill cyan">FAISS</span>
+          <span class="pill cyan">Scikit-learn</span>
+          <span class="pill cyan">NLTK</span>
+          <span class="pill cyan">Pandas</span>
+          <span class="pill cyan">NumPy</span>
+        </div>
+        <h3>Cloud &amp; Tools</h3>
+        <div class="pill-group">
+          <span class="pill amber">AWS EC2 / S3 / IAM / RDS</span>
+          <span class="pill amber">MySQL</span>
+          <span class="pill amber">Git &amp; GitHub</span>
+          <span class="pill amber">Flutter</span>
+          <span class="pill amber">Streamlit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>Experience</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="timeline">
+      <div class="job">
+        <div class="job-date">Jun 2025 – Jul 2025</div>
+        <div>
+          <h3>Cloud Computing Intern</h3>
+          <div class="company">Maxgen Technologies Pvt. Ltd. · Pune</div>
+          <ul>
+            <li>Worked with AWS services including EC2, S3, IAM, RDS, and VPC.</li>
+            <li>Designed cloud architectures focused on scalability and security.</li>
+            <li>Implemented IAM roles and configured security groups.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="job">
+        <div class="job-date">Apr 2025 – May 2025</div>
+        <div>
+          <h3>Artificial Intelligence Intern</h3>
+          <div class="company">Codec Technologies Pvt. Ltd.</div>
+          <ul>
+            <li>Built and trained CNN models for image classification tasks.</li>
+            <li>Applied TensorFlow, NumPy, and Pandas for model development.</li>
+            <li>Evaluated performance and optimized model accuracy.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>Projects</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="project-grid">
+
+      <div class="card">
+        <div class="card-head">
+          <span class="fname">ai_study_assistant.py</span>
+          <span class="pill cyan">Jun 2026</span>
+        </div>
+        <div class="card-body">
+          <h3>AI Study Assistant with Real RAG</h3>
+          <p>
+            A conversational study assistant built on <span class="hl">RAG</span> with persistent memory.
+            Documents are chunked, embedded with HuggingFace models, and indexed in
+            <span class="hl">FAISS</span> for retrieval, all wrapped in a Streamlit chat
+            interface with upload support and Groq-powered responses.
+          </p>
+          <div class="pill-group">
+            <span class="pill violet">LangChain</span>
+            <span class="pill violet">FAISS</span>
+            <span class="pill violet">HuggingFace</span>
+            <span class="pill violet">Streamlit</span>
+            <span class="pill violet">Groq</span>
+          </div>
+          <a class="card-link" href="https://github.com/Amrishpurigoswami" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="fname">digimitra.py</span>
+          <span class="pill amber">Aug 2025</span>
+        </div>
+        <div class="card-body">
+          <h3>DigiMitra — Bilingual AI Chatbot</h3>
+          <p>
+            A bilingual chatbot built to guide users through <span class="hl">digital literacy</span> —
+            email, UPI, WhatsApp, and online safety. Flask backend with NLTK-based rule
+            responses, plus voice input and speech output for accessibility.
+          </p>
+          <div class="pill-group">
+            <span class="pill amber">Flask</span>
+            <span class="pill amber">LangChain</span>
+            <span class="pill amber">NLTK</span>
+            <span class="pill amber">Streamlit</span>
+            <span class="pill amber">Tailwind CSS</span>
+          </div>
+          <a class="card-link" href="https://github.com/Amrishpurigoswami" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="fname">cnn_classifier.ipynb</span>
+          <span class="pill cyan">May 2025</span>
+        </div>
+        <div class="card-body">
+          <h3>Image Classification using CNN</h3>
+          <p>
+            A convolutional neural network trained for image classification, covering
+            the full pipeline from preprocessing image data to evaluating model
+            performance and visualizing accuracy and loss curves.
+          </p>
+          <div class="pill-group">
+            <span class="pill cyan">TensorFlow</span>
+            <span class="pill cyan">NumPy</span>
+            <span class="pill cyan">Pandas</span>
+            <span class="pill cyan">Matplotlib</span>
+            <span class="pill cyan">Scikit-learn</span>
+          </div>
+          <a class="card-link" href="https://github.com/Amrishpurigoswami/Image-Classification-using-CNN" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="fname">document_reader_agent/</span>
+          <span class="pill violet">repo</span>
+        </div>
+        <div class="card-body">
+          <h3>Document Reader Agent</h3>
+          <p>
+            An agent that answers questions from uploaded PDFs and notes using
+            <span class="hl">RAG</span>, with voice input transcribed via a Whisper-based
+            ASR model and conversational memory powered by LangChain.
+          </p>
+          <div class="pill-group">
+            <span class="pill violet">Python</span>
+            <span class="pill violet">LangChain</span>
+            <span class="pill violet">RAG</span>
+            <span class="pill violet">ASR</span>
+          </div>
+          <a class="card-link" href="https://github.com/Amrishpurigoswami/Document-Reader-agent" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="fname">spam_detector.ipynb</span>
+          <span class="pill amber">repo</span>
+        </div>
+        <div class="card-body">
+          <h3>Detecting Spam Emails</h3>
+          <p>
+            A classifier that flags unsolicited bulk emails automatically, built to
+            cut down inbox clutter using classic NLP preprocessing and machine
+            learning classification techniques.
+          </p>
+          <div class="pill-group">
+            <span class="pill amber">Python</span>
+            <span class="pill amber">NLP</span>
+            <span class="pill amber">Scikit-learn</span>
+          </div>
+          <a class="card-link" href="https://github.com/Amrishpurigoswami/Detecting-Spam-Emails" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="fname">chatbot/</span>
+          <span class="pill cyan">repo</span>
+        </div>
+        <div class="card-body">
+          <h3>Chatbot Experiments</h3>
+          <p>
+            A pair of early chatbot builds exploring conversational interfaces and
+            rule-based response systems — the groundwork that later evolved into
+            DigiMitra.
+          </p>
+          <div class="pill-group">
+            <span class="pill cyan">HTML</span>
+            <span class="pill cyan">Python</span>
+          </div>
+          <a class="card-link" href="https://github.com/Amrishpurigoswami?tab=repositories" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>Contact</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="contact-box">
+      <h2>Let's build something.</h2>
+      <p>Open to internships, collaborations, and interesting problems.</p>
+      <div class="contact-links">
+        <a class="btn primary" href="mailto:amrishpurigoswami4@gmail.com">Email me</a>
+        <a class="btn ghost" href="https://github.com/Amrishpurigoswami" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn ghost" href="#" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    built by Amrish Puri Goswami · <span class="accent">2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
