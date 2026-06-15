@@ -688,16 +688,31 @@
   const emailBtn = document.getElementById('emailBtn');
   const toast = document.getElementById('copyToast');
 
-  emailBtn.addEventListener('click', () => {
+  emailBtn.addEventListener('click', (e) => {
     const email = emailBtn.dataset.email;
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(email).then(() => {
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
-      }).catch(() => {});
+
+    function showToast() {
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
     }
-    // mailto: still fires normally via the href, opening the user's mail app
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(email).then(showToast).catch(() => fallbackCopy(email, showToast));
+    } else {
+      fallbackCopy(email, showToast);
+    }
   });
+
+  function fallbackCopy(text, cb) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); cb(); } catch (err) {}
+    document.body.removeChild(ta);
+  }
 </script>
 
 </body>
